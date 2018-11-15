@@ -6,6 +6,6 @@ namespace QuizD
 {
     class MultiChoiceQuestion : Question
     {
-
+   
     }
 }

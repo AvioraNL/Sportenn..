@@ -8,16 +8,16 @@ namespace QuizD
     {
         public Question()
         {
-            Text = "";
-            Answer = "";
 
         }
         public string Text  { get; set; }
         public string Answer { get; set; }
+        public int Difficult { get; set; }
+
 
         public Boolean CheckAnswer(string response) => response == Answer;
 
-        public void Display() => Console.WriteLine(Text);
+        public virtual void Display() => Console.WriteLine(Text);
 
     }
 
