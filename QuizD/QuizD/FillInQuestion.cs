@@ -4,7 +4,7 @@ using System.Text;
 
 namespace QuizD
 {
-    class FillInQuestion
+    class FillInQuestion : Question
     {
     }
 }
