@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace QuizD
 {
     public class Program
     {
-        private static List<Question> VragenLijst = new List<Question>();
+        public static List<Question> VragenLijst = new List<Question>();
 
-        private static void Main(string[] args)
+        public static void Main(string[] args)
         {
             ChoiceQuestion vraag1 = new ChoiceQuestion()
             {
                 Text = "Wie heeft C# bedacht?",
                 Difficult = 2,
-                Category = "Techniek & Wetenschap",
+                Category = "ICT",
             };
 
             vraag1.AddChoice("Microsoft", true);
@@ -25,8 +24,8 @@ namespace QuizD
             ChoiceQuestion vraag2 = new ChoiceQuestion()
             {
                 Text = "Door welk bedrijf is de Playstation ontwikkeld?",
-                Difficult = 3,
-                Category = "Techniek & Wetenschap",
+                Difficult = 2,
+                Category = "ICT",
             };
 
             vraag2.AddChoice("Microsoft", false);
@@ -34,167 +33,109 @@ namespace QuizD
             vraag2.AddChoice("IBM", false);
             vraag2.AddChoice("Sony", true);
 
-            FreeResponseQuestion vraag3 = new FreeResponseQuestion()
+            ChoiceQuestion vraag3 = new ChoiceQuestion()
+            {
+                Text = "Welke Italiaanse voetbalclub wordt vergeleken met een oude dame?",
+                Difficult = 3,
+                Category = "Sport",
+            };
+
+            vraag2.AddChoice("Juventus", true);
+            vraag2.AddChoice("Barcelona", false);
+            vraag2.AddChoice("AC Milan", false);
+            vraag2.AddChoice("Inter Milan", false);
+
+            ChoiceQuestion vraag4 = new ChoiceQuestion()
+            {
+                Text = "Welke sport betekend in het Japans “zachte weg”?",
+                Difficult = 3,
+                Category = "Sport",
+            };
+
+            vraag2.AddChoice("Judo", true);
+            vraag2.AddChoice("Voetbal", false);
+            vraag2.AddChoice("Tennis", false);
+            vraag2.AddChoice("Kaarten", false);
+
+            FreeResponseQuestion vraag5 = new FreeResponseQuestion()
             {
                 Text = "Hoeveel hoekpunten heeft een piramide?",
                 Answer = "5",
                 Difficult = 1,
-                Category = "Techniek & Wetenschaps",
+                Category = "Wetenschap",
+            };
+
+            FreeResponseQuestion vraag6 = new FreeResponseQuestion()
+            {
+                Text = "Wanneer eindigde de eerste wereldoorlog??",
+                Answer = "1918",
+                Difficult = 2,
+                Category = "Geschiedenis",
+            };
+
+            FreeResponseQuestion vraag7 = new FreeResponseQuestion()
+            {
+                Text = "Hoe worden Romeinen genoemd die in amfitheaters vochten als leedvermaak?",
+                Answer = "Gladiatoren",
+                Difficult = 2,
+                Category = "Geschiedenis",
+            };
+
+            FreeResponseQuestion vraag8 = new FreeResponseQuestion()
+            {
+                Text = "Waarvoor staat de P in de afkorting APK?",
+                Answer = "Periodieke",
+                Difficult = 2,
+                Category = "Vervoer",
             };
 
             VragenLijst.Add(vraag1);
             VragenLijst.Add(vraag2);
             VragenLijst.Add(vraag3);
+            VragenLijst.Add(vraag4);
+            VragenLijst.Add(vraag5);
+            VragenLijst.Add(vraag6);
+            VragenLijst.Add(vraag7);
+            VragenLijst.Add(vraag8);
 
             bool spelKlaar = false;
 
-            PrintWelkom();
-            int vragenGoed = 0;
+            Game.PrintWelkom();
 
             while (!spelKlaar)
             {
                 Console.Write("Command: ");
-                switch (Console.ReadLine())
+                string command = Console.ReadLine();
+                switch (command)
                 {
                     case "1":
-                        foreach (Question d in VragenLijst)
-                        {
-                            d.Display();
-                            Console.WriteLine("Jouw antwoord is: ");
-                            string answer = Console.ReadLine();
-                            bool gewonnen = d.CheckAnswer(answer) ? true : false;
-                            if (gewonnen)
-                            {
-                                if (VragenLijst.Last() == d)
-                                {
-                                    Console.WriteLine("Dat was de laatste vraag, je hebt {0} van de {1} goed", vragenGoed + 1, VragenLijst.Count);
-                                    break;
-                                }
-                                Console.WriteLine("Je doet het goed, ga door!");
-                                vragenGoed++;
-                                continue;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Beter je college doen :)");
-                                continue;
-                            }
-                        }
+                        Game.PrintVragenNormaal();
                         break;
 
                     case "2":
-                        VragenLijst.Sort((a, b) => (a.Difficult.CompareTo(b.Difficult)));
-                        foreach (Question d in VragenLijst)
-                        {
-                            d.Display();
-                            Console.WriteLine("Jouw antwoord is: ");
-                            string answer = Console.ReadLine();
-                            bool gewonnen = d.CheckAnswer(answer) ? true : false;
-                            if (!gewonnen)
-                            {
-                                Console.WriteLine("Typ 1 om opnieuw te beginnen");
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Je doet het goed, ga door!");
-                                continue;
-                            }
-                        }
-
+                        Game.PrintMakkelijkeVragenEerst();
                         break;
 
                     case "3":
-                        VragenLijst.Sort((a, b) => (b.Difficult.CompareTo(a.Difficult)));
-                        foreach (Question d in VragenLijst)
-                        {
-                            d.Display();
-                            Console.WriteLine("Jouw antwoord is: ");
-                            string answer = Console.ReadLine();
-                            bool gewonnen = d.CheckAnswer(answer) ? true : false;
-                            if (!gewonnen)
-                            {
-                                Console.WriteLine("Typ 1 om opnieuw te beginnen");
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Je doet het goed, ga door!");
-                                continue;
-                            }
-                        }
+                        Game.PrintMoeilijkeVragenEerst();
                         break;
 
                     case "4":
-                        PrintCategories(VragenLijst);
+                        Game.PrintCategories(VragenLijst);
+                        break;
+
+                    case "5":
+                        Game.PrintMoeilijkHeidsGraad(VragenLijst);
                         break;
 
                     case "clear":
                         Console.Clear();
-                        PrintWelkom();
-
+                        Game.PrintWelkom();
                         break;
 
                     case "9":
                         spelKlaar = true;
                         break;
-                }
-            }
-        }
-
-        public static void PrintWelkom()
-        {
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.Title = "Super coole Quiz";
-            Console.WriteLine("+------------------------------Welkom bij Super coole Quiz vragen-----------------------+");
-            Console.WriteLine("- Wil je uitdaging of hou je het van lekker makkelijk volg hieronder de keuze menu!    -+");
-            Console.WriteLine("- Wil je beginnen met de vragen? Tik dan 1                                             -+");
-            Console.WriteLine("- Wil je beginnen met de makkelijke vragen? Tik dan 2                                  -+");
-            Console.WriteLine("- Wil je beginnen met de moeilijke vragen? Tik dan 3                                   -+");
-            Console.WriteLine("- Wil je overzicht bekijken welke categorieën mogelijk zijn? Tik dan 4                 -+");
-            Console.WriteLine("- Wil je beginnen met de vragen? Tik dan 1                                             -+");
-            Console.WriteLine("- Wil je beginnen met de vragen? Tik dan 1                                             -+");
-            Console.WriteLine("- Wil je de quiz verlaten Tik dan 9                                                    -+");
-            Console.WriteLine("+---------------------------------------------------------=-----------------------------+");
-        }
-
-        public static void PrintCategories(List<Question> vragenLijst)
-        {
-            var categories = vragenLijst.Select(e => e.Category).Distinct().ToList();
-            Console.WriteLine("Categorieën die je kan kiezen zijn: \n");
-            for (int i = 0; i < categories.Count; i++)
-            {
-                Console.WriteLine(i + 1 + ": " + categories[i]);
-            }
-            Console.WriteLine("Welke bij welke categorie wil je de vragen beantwoorden?");
-            string inputCategorie = Console.ReadLine();
-            Console.WriteLine("Je hebt gekozen voor : " + categories[int.Parse(inputCategorie) - 1]);
-
-            var questions = vragenLijst.Where(e => e.Category == categories[int.Parse(inputCategorie) - 1]);
-
-            foreach (Question question in questions)
-            {
-                question.Display();
-
-                Console.WriteLine("Jouw antwoord is: ");
-                string answer = Console.ReadLine();
-                bool gewonnen = question.CheckAnswer(answer) ? true : false;
-                if (!gewonnen)
-                {
-                    Console.WriteLine("Typ 1 om opnieuw te beginnen");
-                    PrintWelkom();
-                    Console.Clear();
-                    break;
-                }
-                else
-                {
-                    if (VragenLijst.Last() == question)
-                    {
-                        Console.WriteLine("Dat was de laatste vraag, je hebt goed");
-                        break;
-                    }
-                    Console.WriteLine("Je doet het goed, ga door!");
-                    continue;
                 }
             }
         }

@@ -11,6 +11,6 @@ namespace QuizD
 
         public Boolean CheckAnswer(string response) => response == Answer;
 
-        public virtual void Display() => Console.WriteLine(Text);
+        public virtual void Display() => Console.WriteLine(Text + " Categorie " + Category + " Moeilijkheidsgraad " + Difficult);
     }
 }
