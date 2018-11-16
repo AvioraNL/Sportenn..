@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace QuizD
 {
-    class ChoiceQuestion : Question
+    public class ChoiceQuestion : Question
     {
-
         private List<string> Choices;
 
         public ChoiceQuestion()
         {
             Choices = new List<string>();
         }
-
 
         public void AddChoice(String choice, bool correct)
         {
@@ -26,7 +23,6 @@ namespace QuizD
             }
         }
 
-
         public override void Display()
         {
             base.Display();
@@ -36,7 +32,5 @@ namespace QuizD
                 Console.WriteLine(choiceNumber + ": " + Choices[i]);
             }
         }
-
-
     }
 }

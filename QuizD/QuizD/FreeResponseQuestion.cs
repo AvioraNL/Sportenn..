@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace QuizD
+﻿namespace QuizD
 {
-    class FreeResponseQuestion : Question
+    public class FreeResponseQuestion : Question
     {
     }
 }
